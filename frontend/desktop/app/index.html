@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';">
+    <link rel="stylesheet" href="./bootstrap-5.3.3-dist/css/bootstrap.min.css">
+    <script src="./bootstrap-5.3.3-dist/js/bootstrap.bundle.min.js"></script>
+  </head>
+  <body>
+    <div class = "container">
+        <h1 class="mb-4 mt-2">CV converter v1.0</h1>
+        <div class="row mb-3">
+            <div class="col-sm-4">
+                <label>Input file filename:</label>
+            </div>
+            <div class="col-sm-8">
+                <input id="inputFile" type="text" class="form-control" >
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-sm-4">
+                <label>Output file filename:</label>
+            </div>
+            <div class="col-sm-8">
+                <input id="outputFile" type="text" class="form-control" >
+            </div>
+        </div>
+        <div class="accordion mb-3" id="parentAccordion">
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="headingOne">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                  Profile Section
+                </button>
+              </h2>
+              <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#parentAccordion">
+                <div class="accordion-body">
+                  <div class="row mb-3">
+                        <div class="col-sm-4">
+                            <label>Photo filename:</label>
+                        </div>
+                        <div class="col-sm-8">
+                            <input id="photoFile" type="text" class="form-control" >
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-sm-4">
+                            <label>Name:</label>
+                        </div>
+                        <div class="col-sm-8">
+                            <input id="name" type="text" class="form-control" >
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-sm-4">
+                            <label>City:</label>
+                        </div>
+                        <div class="col-sm-8">
+                            <input id="city" type="text" class="form-control" >
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-sm-4">
+                            <label>Country:</label>
+                        </div>
+                        <div class="col-sm-8">
+                            <input id="country" type="text" class="form-control" >
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-sm-4">
+                            <label>Mobile Phone:</label>
+                        </div>
+                        <div class="col-sm-8">
+                            <input id="mobilePhone" type="text" class="form-control" >
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-sm-4">
+                            <label>Email:</label>
+                        </div>
+                        <div class="col-sm-8">
+                            <input id="email" type="text" class="form-control" >
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-sm-4">
+                            <label>Github:</label>
+                        </div>
+                        <div class="col-sm-8">
+                            <input id="github" type="text" class="form-control" >
+                        </div>
+                    </div>
+                </div>
+              </div>
+            </div>
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="headingTwo">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                  Summary
+                </button>
+              </h2>
+              <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#parentAccordion">
+                <div class="accordion-body">
+                  <div class="row mb-3">
+                    <div class="col-sm-12">
+                      <textarea id="summary" name="summary" rows="10" cols="45">
+                      </textarea>
+                    </div>
+                </div>
+              </div>
+            </div>
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="headingThree">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                  Work Experience
+                </button>
+              </h2>
+              <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#parentAccordion">
+                <div class="accordion-body" id="accordionExperience">
+                    <div class="row mb-3">
+                        <div class="col-sm-4">
+                            <label>Number of items:</label>
+                        </div>
+                        <div class="col-sm-4">
+                            <input id="experienceFieldsNo" type="text" class="form-control" >
+                        </div>
+                        <div class="col-sm-4">
+                            <button id="experienceBtn" type="button" class="btn btn-primary float-end" onclick="generateExperienceFields(event)">Generate Fields</button>
+                        </div>
+                    </div>
+                </div>
+              </div>
+            </div>
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingFour">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                    Education
+                  </button>
+                </h2>
+                <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#parentAccordion">
+                  <div class="accordion-body" id="accordionEducation">
+                    <div class="row mb-3">
+                    <div class="col-sm-4">
+                        <label>Number of items:</label>
+                    </div>
+                    <div class="col-sm-4">
+                        <input id="educationFieldsNo" type="text" class="form-control" >
+                    </div>
+                    <div class="col-sm-4">
+                        <button id="educationBtn" type="button" class="btn btn-primary float-end" onclick="generateEducationFields(event)">Generate Fields</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+              <div class="accordion-item">
+                <h2 class="accordion-header" id="headingFive">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+                    Skills
+                  </button>
+                </h2>
+                <div id="collapseFive" class="accordion-collapse collapse" aria-labelledby="headingFive" data-bs-parent="#parentAccordion">
+                  <div class="accordion-body" id="accordionSkills">
+                    <div class="row mb-3">
+                        <div class="col-sm-12">
+                          <label>Languages:</label>
+                        </div>
+                        <div class="col-sm-12">
+                          <textarea id="languages" rows="3" cols="45"></textarea>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-sm-12">
+                          <label>Frameworks:</label>
+                        </div>
+                        <div class="col-sm-12">
+                            <textarea id="frameworks" rows="3" cols="45"></textarea>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-sm-12">
+                            <label>Devops:</label>
+                        </div>
+                        <div class="col-sm-12">
+                            <textarea id="devops" rows="3" cols="45"></textarea>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-sm-12">
+                            <label>DBs:</label>
+                        </div>
+                    <div class="col-sm-12">
+                        <textarea id="dbs" rows="3" cols="45"></textarea>
+                    </div>
+                   </div>
+                    <div class="row mb-3">
+                      <div class="col-sm-12">
+                        <label>Version Control:</label>
+                      </div>
+                      <div class="col-sm-12">
+                        <textarea id="vsystems" rows="3" cols="45"></textarea>
+                      </div>
+                    </div>
+                    <div class="row mb-3">
+                      <div class="col-sm-12">
+                        <label>Methodologies:</label>
+                      </div>
+                      <div class="col-sm-12">
+                        <textarea id="methodologies" rows="3" cols="45"></textarea>
+                      </div>
+                    </div>
+                </div>
+              </div>
+              </div>
+              <div class="accordion-item">
+                <h2 class="accordion-header" id="headingSix">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
+                    Languages
+                  </button>
+                </h2>
+                <div id="collapseSix" class="accordion-collapse collapse" aria-labelledby="headingSix" data-bs-parent="#parentAccordion">
+                  <div class="accordion-body" id="accordionLanguages">
+                    <div class="row mb-3">
+                      <div class="col-sm-4">
+                          <label>Number of items:</label>
+                      </div>
+                      <div class="col-sm-4">
+                          <input id="languagesFieldsNo" type="text" class="form-control" >
+                      </div>
+                      <div class="col-sm-4">
+                          <button id="languagesBtn" type="button" class="btn btn-primary float-end" onclick="generateLanguagesFields(event)">Generate Fields</button>
+                      </div>
+                  </div>
+                </div>
+              </div>
+              </div>
+              <div class="accordion-item mb-3">
+                <h2 class="accordion-header" id="headingSeven">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven">
+                    Certificates
+                  </button>
+                </h2>
+                <div id="collapseSeven" class="accordion-collapse collapse" aria-labelledby="headingSeven" data-bs-parent="#parentAccordion">
+                  <div class="accordion-body" id="accordionCertificates">
+                    <div class="row mb-3">
+                      <div class="col-sm-4">
+                          <label>Number of items:</label>
+                      </div>
+                      <div class="col-sm-4">
+                          <input id="certificatesFieldsNo" type="text" class="form-control" >
+                      </div>
+                      <div class="col-sm-4">
+                          <button id="certificatesBtn" type="button" class="btn btn-primary float-end" onclick="generateCertificatesFields(event)">Generate Fields</button>
+                      </div>
+                  </div>
+                </div>
+              </div>
+
+          </div>
+          <div class="row">
+            <div class="col-sm-8">
+             </div>
+             <div class="col-sm-4">
+                 <button id="generatePdfBtn" type="button" class="btn btn-primary float-end">Generate PDF</button>
+             </div>
+         </div>
+    </div>
+
+    <script>
+       function generateExperienceFields(event){
+
+        event.preventDefault();
+
+        for(let i=0; i<Number.parseInt(experienceFieldsNo.value); i++){
+
+            document.getElementById("accordionExperience").innerHTML += "<div id='job" + i + "'>" +
+                                                                        "<h2>Job " + Number.parseInt(i+1) + 
+                                                                        "</h2>" +
+                                                                        "<div class='row mb-3'>" +
+                                                                        "<div class='col-sm-4'>" +
+                                                                        "<label>Job Position:</label>" +
+                                                                        "</div>" +
+                                                                        "<div class='col-sm-8'>" +
+                                                                        "<input type='text' class='jobPosition form-control'>" +
+                                                                        "</div>" +
+                                                                        "</div>" +
+                                                                        "<div class='row mb-3'>" +
+                                                                        "<div class='col-sm-4'>" +
+                                                                        "<label>Company:</label>" +
+                                                                        "</div>" +
+                                                                        "<div class='col-sm-8'>" +
+                                                                        "<input type='text' class='company form-control'>" +
+                                                                        "</div>" +
+                                                                        "</div>" +
+                                                                        "<div class='row mb-3'>" +
+                                                                        "<div class='col-sm-4'>" +
+                                                                        "<label>Date From:</label>" +
+                                                                        "</div>" +
+                                                                        "<div class='col-sm-8'>" +
+                                                                        "<input type='text' class='dateFrom form-control'>" +
+                                                                        "</div>" +
+                                                                        "</div>" +
+                                                                        "<div class='row mb-3'>" +
+                                                                        "<div class='col-sm-4'>" +
+                                                                        "<label>Date To:</label>" +
+                                                                        "</div>" +
+                                                                        "<div class='col-sm-8'>" +
+                                                                        "<input type='text' class='dateTo form-control'>" +
+                                                                        "</div>" +
+                                                                        "</div>" +
+                                                                        "<div class='row mb-3'>" +
+                                                                        "<div class='col-sm-4'>" +
+                                                                        "<label>Projects No.:</label>" +
+                                                                        "</div>" +
+                                                                        "<div class='col-sm-4'>" +
+                                                                        "<input id='projectsNo" + i + "' type='text' class='projectsNo form-control'>" +
+                                                                        "</div>" +
+                                                                        "<div class='col-sm-4'>" +
+                                                                        "<button type='button' id='projectsBtn" + i + "' class='btn btn-primary float-end'>Generate Fields</button>" +
+                                                                        "</div>"
+                                                                        "</div>";      
+                                                                        
+               const projectsBtn = document.getElementById("projectsBtn" + i);
+               projectsBtn.addEventListener("click", generateProjectsFields, false);
+               projectsBtn.index = i;
+            }
+    }
+  
+    function generateProjectsFields(event){
+
+      console.log("evt: ", event);
+     
+        const projectsNo = document.getElementById("projectsNo" + event.currentTarget.index);
+
+        event.preventDefault();
+
+        for(let i=0; i<Number.parseInt(projectsNo.value); i++){
+
+            document.getElementById("job" + event.currentTarget.index).innerHTML += "<h2>Project " + Number.parseInt(i+1) + 
+                                                                        "</h2>" +
+                                                                        "<div class='row mb-3'>" +
+                                                                        "<div class='col-sm-12'>" +
+                                                                        "<label>Description:</label>" +
+                                                                        "</div>" +
+                                                                        "<div class='col-sm-12'>" +
+                                                                        "<textarea class='projDescription' rows='3' cols='45'></textarea>" +
+                                                                        "</div>" +
+                                                                        "</div>" +
+                                                                        "<div class='row mb-3'>" +
+                                                                        "<div class='col-sm-12'>" +
+                                                                        "<label>Technologies Used:</label>" +
+                                                                        "</div>" +
+                                                                        "<div class='col-sm-12'>" +
+                                                                        "<textarea class='projTech' rows='3' cols='45'></textarea>" +
+                                                                        "</div>" +
+                                                                        "</div>";       
+        }
+    }
+  
+        
+    function generateEducationFields(event){
+
+        event.preventDefault();
+
+        for(let i=0; i<Number.parseInt(educationFieldsNo.value); i++){
+
+            document.getElementById("accordionEducation").innerHTML += "<div id='education" + i + 
+                                                                        "'><h2>Education " + Number.parseInt(i+1) + 
+                                                                        "</h2>" +
+                                                                        "<div class='row mb-3'>" +
+                                                                        "<div class='col-sm-12'>" +
+                                                                        "<label>Degree:</label>" +
+                                                                        "</div>" +
+                                                                        "<div class='col-sm-12'>" +
+                                                                        "<input type='text' class='degree form-control'>" +
+                                                                        "</div>" +
+                                                                        "</div>" +
+                                                                        "<div class='row mb-3'>" +
+                                                                        "<div class='col-sm-12'>" +
+                                                                        "<label>Course/branch:</label>" +
+                                                                        "</div>" +
+                                                                        "<div class='col-sm-12'>" +
+                                                                        "<input type='text' class='course form-control'>" +
+                                                                        "</div>" +
+                                                                        "</div>" +
+                                                                        "<div class='row mb-3'>" +
+                                                                        "<div class='col-sm-12'>" +
+                                                                        "<label>University:</label>" +
+                                                                        "</div>" +
+                                                                        "<div class='col-sm-12'>" +
+                                                                        "<input type='text' class='university form-control'>" +
+                                                                        "</div>" +
+                                                                        "</div>" +
+                                                                        "<div class='row mb-3'>" +
+                                                                        "<div class='col-sm-12'>" +
+                                                                        "<label>DateF rom:</label>" +
+                                                                        "</div>" +
+                                                                        "<div class='col-sm-12'>" +
+                                                                        "<input type='text' class='edDateFrom form-control'>" +
+                                                                        "</div>" +
+                                                                        "</div>" +
+                                                                        "<div class='row mb-3'>" +
+                                                                        "<div class='col-sm-12'>" +
+                                                                        "<label>Date To:</label>" +
+                                                                        "</div>" +
+                                                                        "<div class='col-sm-12'>" +
+                                                                        "<input type='text' class='edDateTo form-control'>" +
+                                                                        "</div>" +
+                                                                        "</div>" +
+                                                                        "<div class='row mb-3'>" +
+                                                                        "<div class='col-sm-12'>" +
+                                                                        "<label>Thesis:</label>" +
+                                                                        "</div>" +
+                                                                        "<div class='col-sm-12'>" +
+                                                                        "<input type='text' class='thesis form-control'>" +
+                                                                        "</div>" +
+                                                                        "</div>" +
+                                                                        "<div class='row mb-3'>" +
+                                                                        "<div class='col-sm-12'>" +
+                                                                        "<label>Description:</label>" +
+                                                                        "</div>" +
+                                                                        "<div class='col-sm-12'>" +
+                                                                        "<textarea class='edDescription' rows='3' cols='45'></textarea>" +
+                                                                        "</div>" +
+                                                                        "</div>" +
+                                                                        "<div class='row mb-3'>" +
+                                                                        "<div class='col-sm-12'>" +
+                                                                        "<label>Technologies used:</label>" +
+                                                                        "</div>" +
+                                                                        "<div class='col-sm-12'>" +
+                                                                        "<textarea class='educationTech' rows='3' cols='45'></textarea>" +
+                                                                        "</div>" +
+                                                                        "</div>";       
+        }
+    } 
+  
+    function generateLanguagesFields(event){
+
+        event.preventDefault();
+
+        for(let i=0; i<Number.parseInt(languagesFieldsNo.value); i++){
+
+        document.getElementById("accordionLanguages").innerHTML += "<div id='lang" + i + 
+                                                                "'>" +
+                                                                "<div class='row mb-3'>" +
+                                                                "<div class='col-sm-4'>" +
+                                                                "<label>Language " + Number.parseInt(i+1) + "</label>" +
+                                                                "</div>" +
+                                                                "<div class='col-sm-8'>" +
+                                                                "<input type='text' class='language form-control'>" +
+                                                                "</div>" +
+                                                                "</div>";       
+    }
+    }
+  
+    function generateCertificatesFields(event){
+        const certificatesFieldsNo = document.getElementById("certificatesFieldsNo");
+
+        event.preventDefault();
+
+        for(let i=0; i<Number.parseInt(certificatesFieldsNo.value); i++){
+
+        document.getElementById("accordionCertificates").innerHTML += "<div id='cert" + Number.parseInt(i+1) + 
+                                                                        "'><h2>Certificate " + Number.parseInt(i+1) + 
+                                                                        "</h2>" +
+                                                                        "<div class='row mb-3'>" +
+                                                                        "<div class='col-sm-4'>" +
+                                                                        "<label>Title:</label>" +
+                                                                        "</div>" +
+                                                                        "<div class='col-sm-8'>" +
+                                                                        "<input type='text' class='certTitle form-control'>" +
+                                                                        "</div>" +
+                                                                        "</div>" +      
+                                                                        "<div class='row mb-3'>" +
+                                                                        "<div class='col-sm-4'>" +
+                                                                        "<label>Instructor:</label>" +
+                                                                        "</div>" +
+                                                                        "<div class='col-sm-8'>" +
+                                                                        "<input type='text' class='certInstructor form-control'>" +
+                                                                        "</div>" +
+                                                                        "</div>" + 
+                                                                        "<div class='row mb-3'>" +
+                                                                        "<div class='col-sm-4'>" +
+                                                                        "<label>Platform:</label>" +
+                                                                        "</div>" +
+                                                                        "<div class='col-sm-8'>" +
+                                                                        "<input type='text' class='certPlatform form-control'>" +
+                                                                        "</div>" +
+                                                                        "</div>" +
+                                                                        "<div class='row mb-3'>" +
+                                                                        "<div class='col-sm-4'>" +
+                                                                        "<label>Date:</label>" +
+                                                                        "</div>" +
+                                                                        "<div class='col-sm-8'>" +
+                                                                        "<input type='text' class='certDate form-control'>" +
+                                                                        "</div>" +
+                                                                        "</div>";
+    }
+    }
+    </script>
+
+    <script src="./renderer.js"></script>
+
+    
+  </body>
+</html>
